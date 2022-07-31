@@ -51,7 +51,7 @@
 		</div>
 		<br>
 		<div id="div_tooltip">Hover on the bins to see tooltip</div>
-		<svg width="1500" height="650"></svg>
+		<svg width="1500" height="550"></svg>
 		<p><font size="4">*Note that prices were limited to 500$ for better spreading of the x-axis.</font></p>
 	</center>
 <script>
@@ -60,7 +60,7 @@
 function update(selectedVar) {
 d3.selectAll("svg > *").remove();
 var svg = d3.select("svg"),
-    margin = {top: 20, right: 350, bottom: 90, left: 350},
+    margin = {top: 20, right: 350, bottom: 70, left: 350},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
