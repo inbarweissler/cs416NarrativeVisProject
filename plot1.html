@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title> Wine data from Kaggle </title>
+	<link rel="stylesheet" type="text/css" href="mycss.css">
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+<body bgcolor="#ffffff">
+    <center>
+		<div class="graph-title" id="title1">
+			<text>
+				Wine price vs. age
+			</text>
+		</div>
+
+		<div class="graph-description" id="description1">
+			<p>
+				 Is wine getting better with age?<br>
+				 Are wine prices positively correlated with age?<br>
+				 We’ll break this question into multiple components,
+				 using data from <a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>.<br>
+				 The average price trend can be examined in the curve below.
+			</p>
+		</div>
+		<a class="button-navigation" href="plot2_tab1.html" style="margin-left: 500px" >Next</a>
+	
+		<div id="my_dataviz"></div>	
+	</center>
+<script>
+
+// set dimensions and margins of the graph
+var margin = {top: 90, right: 350, bottom: 90, left: 350},
+    width = 1500 - margin.left - margin.right,
+    height = 650 - margin.top - margin.bottom;
+
+// append svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Add X axis
+var x = d3.scaleLinear()
+	.domain([1,200])
+	.range([ 0, width ]);
+svg.append("g")
+	.attr("transform", "translate(0," + height + ")")
+	.call(d3.axisBottom(x)).style("font-size", 15);
+
+// Add X axis label
+svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width/2)
+    .attr("y", height +50)
+    .text("wine age [years]").style("font-size", 25);
+
+// Add Y axis
+var y = d3.scaleLinear()
+	.domain([0, 1550])
+	.range([ height, 0 ]);
+svg.append("g")
+	.call(d3.axisLeft(y)).style("font-size", 15);
+
+// Add Y axis lable
+svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -50)
+    .attr("x", -height/2+margin.top/2)
+    .text("wine price [$]").style("font-size", 25);
+
+// Add legend
+svg.append("circle").attr("cx",530).attr("cy",50).attr("r", 5).style("fill", "green");
+svg.append("circle").attr("cx",530).attr("cy",100).attr("r", 5).style("fill", "#7bccc4");
+svg.append("text").attr("x", 550).attr("y", 50).text("Avg wine prices").style("font-size", "15px").attr("alignment-baseline","middle");
+svg.append("text").attr("x", 560).attr("y", 70).text("(for 3-year intervals)").style("font-size", "15px").attr("alignment-baseline","middle");
+svg.append("text").attr("x", 550).attr("y", 100).text("All prices").style("font-size", "15px").attr("alignment-baseline","middle");
+
+//Read first data file
+d3.csv("https://raw.githubusercontent.com/inbarweissler/cs416NarrativeVisProject/main/wine_data_plot1_file2.csv", function(data2) {
+	// Add scatter plot
+	svg.append('g')
+		.selectAll("dot")
+		.data(data2)
+		.enter()
+		.append("circle")
+			.attr("cx", function (d) { return x(d.age); } )
+			.attr("cy", function (d) { return y(d.price); } )
+			.attr("r", 5)
+			.style("fill", "#7bccc4")
+			.attr("opacity","0.25");
+});
+
+//Read second data file
+d3.csv("https://raw.githubusercontent.com/inbarweissler/cs416NarrativeVisProject/main/wine_data_plot1.csv",function(data) {
+    
+	// Add line plot
+	svg.append("path")
+		.datum(data)
+		.attr("fill", "none")
+		.attr("stroke", "green")
+		.attr("stroke-width", 2.5)
+		.attr("d", d3.line()
+			.x(function(d) { return x(d.x) })
+			.y(function(d) { return y(d.y) })
+		);
+	
+	// Add annotations
+	var annotations_color = d3.color("black")	
+	svg.append("svg:defs").append("svg:marker")
+		.attr("id", "triangle")
+		.attr("refX", 5)
+		.attr("refY", 5)
+		.attr("markerWidth", 20)
+		.attr("markerHeight", 20)
+		.attr("orient", "auto")
+		.append("path")
+		.attr("d", "M 0 0 10 5 0 10 3 5")
+		.style("fill", annotations_color);
+	svg.append("line")
+		.attr("x1", 295)
+		.attr("y1", 70)
+		.attr("x2", 315)
+		.attr("y2", 150)          
+		.attr("stroke-width", 2)
+		.attr("stroke", annotations_color)
+		.attr("marker-end", "url(#triangle)");
+	svg.append("text")
+		.attr("x", 250).attr("y", 60)
+		.text("Prices peak")
+		.style("font-size", "20px")
+		.attr("stroke", annotations_color);
+	svg.append("line")
+		.attr("x1", 50)
+		.attr("y1", 350)
+		.attr("x2", 70)
+		.attr("y2", 430)          
+		.attr("stroke-width", 2)
+		.attr("stroke", annotations_color)
+		.attr("marker-end", "url(#triangle)");
+	svg.append("text")
+		.attr("x", 5).attr("y", 340)
+		.text("Prices increased")
+		.style("font-size", "20px")
+		.attr("stroke", annotations_color);
+});
+d3.selectAll("svg = g").lower();
+</script>
+</body>
+</html>
