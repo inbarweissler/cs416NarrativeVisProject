@@ -44,15 +44,16 @@ a.button-options:hover, a.button-options:active {
 .graph-description {
     max-width: 800px;
     min-width: 400px;
+	min-height: 140px;
     margin: 0 auto;
     background-color: #ffffff;
 }
 
 .graph-description p {
     font-family: sans-serif;
-	font-size: 24px;
-    margin-top:40px;
-    margin-bottom: 40px;
+	font-size: 18px;
+    margin-top:20px;
+    margin-bottom: 20px;
 	color: #525252;
 }
 

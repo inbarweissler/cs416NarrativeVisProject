@@ -12,24 +12,23 @@
 				Wine price vs. age
 			</text>
 		</div>
-
 		<div class="graph-description" id="description1">
 			<p>
-				 Is wine getting better with age?<br>
-				 Are wine prices positively correlated with age?<br>
-				 We’ll break this question into multiple components,
-				 using data from <a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>.<br>
-				 The average price trend can be examined in the curve below.
+				Is wine getting better with age?<br>
+				While this is a matter of taste, we will explore whether wine prices are positively correlated with age?<br>
+				To answer this question we will use data from <a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>.<br>
+				Below is the average price vs. the wine age. Indeed, we can see that the average price does increase but up until an optimal age, from which the prices drop sharply and stay low.
+
 			</p>
 		</div>
-		<a class="button-navigation" href="plot2_tab1.html" style="margin-left: 500px" >Next</a>
+		<a class="button-navigation" href="plot2_tab1.html" style="margin-left: 800px">Next</a>
 	
 		<div id="my_dataviz"></div>	
 	</center>
 <script>
 
 // set dimensions and margins of the graph
-var margin = {top: 90, right: 350, bottom: 90, left: 350},
+var margin = {top: 20, right: 350, bottom: 90, left: 350},
     width = 1500 - margin.left - margin.right,
     height = 650 - margin.top - margin.bottom;
 

@@ -15,18 +15,13 @@
 
 		<div class="graph-description" id="description1">
 			<p>
-				A more complete picture includes aging distribution.<br>
-				The data is filtered to different aging categories using the radio buttons,<br>
-				and the average price for each period is also presented.<br>
-				The average price does get higher with time but up until a certain point.<br>
-				However, the availability of older wines is limited.<br>
-				<font size="4">*Note that prices were limited to 500$ for better spreading of the x-axis.</font>
+				But this is not the end. A more complete picture should include also the price distribution.<br>
+				The data is filtered to different aging categories using the radio buttons below, and the average price for each period is also presented.
+				The average price does get higher with time. However, the number of old exclusive wines is limited.</br>
+				You are welcome to explore!
 			</p>
 		</div>
-		<a class="button-navigation" href="plot2_tab1.html" style="margin-right: 200px">Back</a>
-		<p> </p>
-		<div id="div_tooltip">Hover on the bins to see tooltip</div>
-		<svg width="1500" height="650"></svg>
+		<a class="button-navigation" href="plot2_tab1.html" style="margin-right: 800px">Back</a>
 		
 		<div class="control">
 			<label class="radio">
@@ -54,6 +49,10 @@
 				Extremely Old (>80)
 			</label>
 		</div>
+		<br>
+		<div id="div_tooltip">Hover on the bins to see tooltip</div>
+		<svg width="1500" height="650"></svg>
+		<p><font size="4">*Note that prices were limited to 500$ for better spreading of the x-axis.</font></p>
 	</center>
 <script>
 
@@ -61,7 +60,7 @@
 function update(selectedVar) {
 d3.selectAll("svg > *").remove();
 var svg = d3.select("svg"),
-    margin = {top: 90, right: 350, bottom: 90, left: 350},
+    margin = {top: 20, right: 350, bottom: 90, left: 350},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -187,7 +186,7 @@ d3.csv("https://raw.githubusercontent.com/inbarweissler/cs416NarrativeVisProject
 	svg.append('text')
 		.data(data2)
 		.attr("x", width/2 + 20)
-		.attr("y", 100)
+		.attr("y", 40)
 		.style("font-size", "20px")
 		.html(function(d) {return "Average price is: " + d[selectedVar+'Red'] +
 		"$ for red wines, " + d[selectedVar+'White'] + "$ for white wines"})
